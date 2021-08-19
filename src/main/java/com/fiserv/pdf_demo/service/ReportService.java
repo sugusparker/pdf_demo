@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +29,11 @@ public class ReportService {
 
 
     public String exportReport(String reportFormat) throws IOException, JRException {
-        String path = "D:\\pdf_demo";
-        String resourcePath = "D:\\pdf_demo\\src\\main\\resources\\MyTestJasper.jrxml";
+        String path = System.getProperty("user.dir");
         List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
         //Load file and compile
-        File file = ResourceUtils.getFile("classpath: MyTestJasper.jrxml");
+        var resourcePath = Path.of(path, "src/main/resources/TestOriginal.jrxml").toString();
+        File file = new File(resourcePath);
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
         //revisar metodo JRBeanColletionSource casts Iterable to List
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(transactions);
@@ -40,10 +41,10 @@ public class ReportService {
         parameters.put("createdBy", "Fiserv");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "transaction.html");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "example.html").toString());
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, path + "transaction.pdf");
+            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "example.pdf").toString());
         }
         return "report generated in path" + path;
 

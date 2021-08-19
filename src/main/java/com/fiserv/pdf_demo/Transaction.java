@@ -5,6 +5,7 @@ import lombok.Data;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,8 +15,8 @@ public class Transaction {
     @Id
     private String id;
     private BigDecimal value;
-    private LocalDateTime createdOn;
-    private LocalDateTime lastUpdated;
+    private LocalDate createdOn;
+    private LocalDate lastUpdated;
     private String data1;
     private String data2;
     private String data3;

@@ -21,8 +21,8 @@ public class Provider {
             Transaction transaction = new Transaction();
             transaction.setId(UUID.randomUUID().toString());
             transaction.setValue(BigDecimal.valueOf(Math.random() * 10));
-            transaction.setCreatedOn(LocalDateTime.now());
-            transaction.setLastUpdated(LocalDateTime.now());
+            transaction.setCreatedOn(LocalDate.now());
+            transaction.setLastUpdated(LocalDate.now());
             transaction.setData1("20$");
             transaction.setData2("30$");
             transaction.setData3("40$");

@@ -20,12 +20,14 @@ import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
 import java.util.*;
 
 @RestController
@@ -39,6 +41,7 @@ public class PDFController {
 
     @GetMapping("/jasper/{format}")
     public String jasper(@PathVariable String format) throws Exception {
+
 
         return service.exportReport(format);
 
