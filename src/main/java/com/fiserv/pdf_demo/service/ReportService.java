@@ -32,21 +32,21 @@ public class ReportService {
         String path = System.getProperty("user.dir");
         List<Transaction> transactions = (List<Transaction>) transactionRepository.findAll();
         //Load file and compile
-        var resourcePath = Path.of(path, "src/main/resources/TestOriginal.jrxml").toString();
+        var resourcePath = Path.of(path, "src/main/resources/UltimoOriginal.jrxml").toString();
         File file = new File(resourcePath);
         JasperReport jasperReport = JasperCompileManager.compileReport(file.getAbsolutePath());
-        //revisar metodo JRBeanColletionSource casts Iterable to List
+        //check method JRBeanColletionSource casts Iterable to List
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(transactions);
         Map<String, Object> parameters = new HashMap<>();
         parameters.put("createdBy", "Fiserv");
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
         if (reportFormat.equalsIgnoreCase("html")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "example.html").toString());
+            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "JasperExampleHTML.html").toString());
         }
         if (reportFormat.equalsIgnoreCase("pdf")) {
-            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "example.pdf").toString());
+            JasperExportManager.exportReportToPdfFile(jasperPrint, Path.of(path, "JasperExamplePDF.pdf").toString());
         }
-        return "report generated in path" + path;
+        return "report generated in path " + path;
 
     }
 

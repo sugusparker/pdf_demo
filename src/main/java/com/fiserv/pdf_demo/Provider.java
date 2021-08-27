@@ -17,6 +17,7 @@ public class Provider {
 
     @PostConstruct
     public void initializeData() {
+        //Long start = System.currentTimeMillis();
         for (int i = 0; i < 1000; i++) {
             Transaction transaction = new Transaction();
             transaction.setId(UUID.randomUUID().toString());
@@ -35,6 +36,7 @@ public class Provider {
 
             transactionRepository.save(transaction);
         }
+        //System.out.println("###" + (System.currentTimeMillis() - start));
     }
 }
 
